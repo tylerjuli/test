@@ -1,0 +1,42 @@
+{
+  "name": "amazon-crawler",
+  "version": "1.0.0",
+  "description": "This is simple web app to get info from amazon",
+  "main": "index.js",
+  "author": "soft2dev",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/cors": "2",
+    "aws-sdk": "^2.649.0",
+    "bluebird": "^3.5.1",
+    "chalk": "^2.3.0",
+    "crypto": "^1.0.1",
+    "dotenv": "^4.0.0",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.2.1",
+    "moment": "^2.19.1",
+    "mongoose": "^5.6.7",
+    "mongoose-double": "^0.0.1",
+    "nodemailer": "^6.4.6",
+    "pg": "^7.18.2",
+    "sequelize": "^5.21.5",
+    "striptags": "^3.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^4.10.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^2.4.5",
+    "nodemon": "^1.12.1"
+  },
+  "scripts": {
+    "start": "NODE_PATH=src nodemon --watch src/ src/index.js"
+  }
+}
