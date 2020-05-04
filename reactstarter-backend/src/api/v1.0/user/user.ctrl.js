@@ -24,7 +24,6 @@ exports.updateUser = async (ctx) => {
     try {
         if ( !!query.status ){
             const user = await db.User.findById(id);
-            console.log(user)
             const { firstname, lastname, email } = user.dataValues;
             let mail = await sendApproveEmail(firstname, lastname, email);
         }

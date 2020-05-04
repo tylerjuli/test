@@ -308,7 +308,6 @@ let mailOptions = {
 await transporter.sendMail(mailOptions, (err,info) => {
         console.log(err)
         if (err) {
-                
             return err
         }
         console.log("Message sent: %s", info.messageId);

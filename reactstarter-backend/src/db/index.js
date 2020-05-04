@@ -49,8 +49,6 @@ const {
     PG_HOST: host,
     PG_DATABASE: database,
     PG_PASSWORD: password,
-    PG_PORT: port,
-    PG_MAXPOOLS: max
   } = process.env;
 
 const sequelize = new Sequelize(

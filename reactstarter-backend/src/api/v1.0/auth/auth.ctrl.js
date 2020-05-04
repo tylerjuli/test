@@ -9,10 +9,6 @@ exports.localRegister = async (ctx) => {
         username: Joi.string().regex(/^[a-zA-Z0-9]{3,12}$/).required(),
         email: Joi.string().email().required(),
         password: Joi.string().min(6).max(30),
-        firstname: Joi.string().regex(/^[a-zA-Z]/).required(),
-        lastname: Joi.string().regex(/^[a-zA-Z]/).required(),
-        company: Joi.string().required(),
-        address: Joi.string().required()
     })
 
     const result = Joi.validate(body, schema)
@@ -25,7 +21,7 @@ exports.localRegister = async (ctx) => {
         return
     }
 
-    const { username, email, password, firstname, lastname, address, company } = body
+    const { username, email, password } = body
 
     try {
         const exists = await db.User.findExistancy({
@@ -51,13 +47,9 @@ exports.localRegister = async (ctx) => {
             email,
             password,
             status,
-            role,
-            firstname,
-            lastname,
-            address,
-            company
+            role
         })
-        const accessToken = await db.User.generateToken()
+        const accessToken = await db.User.generateToken(generateToken)
 
         ctx.body = {
             username,
@@ -114,16 +106,16 @@ exports.localLogin = async (ctx) => {
         }
         const { username, id, metaInfo, status, role } = user
 
-        if (!status) {
-            // wrong password
-            ctx.status = 403
-            ctx.body = {
-                message: 'Your account is not approved yet'
-            }
-            return
-        }
+        // if (!status) {
+        //     // wrong password
+        //     ctx.status = 403
+        //     ctx.body = {
+        //         message: 'Your account is not approved yet'
+        //     }
+        //     return
+        // }
 
-        const accessToken = await db.User.generateToken()
+        const accessToken = await db.User.generateToken(user)
 
         ctx.cookies.set('access_token', accessToken, {
             httpOnly: true,
@@ -143,15 +135,14 @@ exports.localLogin = async (ctx) => {
 }
 
 exports.check = async (ctx) => {
-    const { body } = ctx.request;
-    console.log(body)
-    if(!body) {
+    const { user } = ctx.request;
+    if(!user) {
       ctx.status = 401;
       return;
     }
     let exists = null
     try {
-       exists = await db.User.findById(body.id);
+       exists = await db.User.findById(user.id);
       if(!exists) {
         // invalid user
         ctx.cookies.set('access_token', null, {
@@ -164,12 +155,12 @@ exports.check = async (ctx) => {
     } catch (e) {
       ctx.throw(500, e);
     }
-    user = {
+    const body = {
         id: exists.id,
         username: exists.name
     }
     ctx.body = {
-      body
+      user
     };
   };
   

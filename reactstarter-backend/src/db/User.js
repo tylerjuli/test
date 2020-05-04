@@ -44,22 +44,6 @@ module.exports = (sequelize, DataTypes) => {
         status: {
             type: DataTypes.INTEGER, // 0: Disabled, 1: Active
             defaultValue: 0
-        },
-        firstname: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        lastname: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        address: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },                
-        company : {
-            type: DataTypes.STRING,
-            allowNull: false
         }
     });
 
@@ -113,8 +97,8 @@ module.exports = (sequelize, DataTypes) => {
             return db_password === hashed
     }
 
-    User.generateToken = function() {
-        const { id, username } = User
+    User.generateToken = function(user) {
+        const { id, username } = user
         return token.generateToken({
             user: {
                 id,

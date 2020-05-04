@@ -2,7 +2,11 @@ import React from 'react'
 import { 
     Link,
  } from "react-router-dom";
-export default function Header(){
+
+export default function Header({authActions, isLogin}){
+    const logout = () => {
+        authActions.userLogout()
+    }
     return(
         <header className="myHeader">
             <div className="container">
@@ -14,30 +18,38 @@ export default function Header(){
                     </div>
                     <div className="col-6">
                         <ul className="navLinks">
-                            <li>
-                                <Link to="/signin">
-                                    <span className="logoutIc">
-                                        <img src={require('../../static/images/ic_sign_in.svg')} alt="signin" />
-                                    </span> 
-                                     Sign In
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/signup">
-                                    <span className="logoutIc"> 
-                                        <img src={require('../../static/images/ic_sign_up.svg')} alt="signup" />
-                                    </span> 
-                                     Sign up
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/signin">
-                                    <span className="logoutIc">
-                                        <img src={require('../../static/images/logout.svg')} alt="logout" />
-                                    </span> 
-                                     Logout
-                                </Link>
-                            </li>
+                            {
+                                !isLogin&&
+                                <React.Fragment>
+                                    <li>
+                                        <Link to="/signin">
+                                            <span className="logoutIc">
+                                                <img src={require('../../static/images/ic_sign_in.svg')} alt="signin" />
+                                            </span> 
+                                            Sign In
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/signup">
+                                            <span className="logoutIc"> 
+                                                <img src={require('../../static/images/ic_sign_up.svg')} alt="signup" />
+                                            </span> 
+                                            Sign up
+                                        </Link>
+                                    </li>
+                                </React.Fragment>
+                            }
+                            {
+                                isLogin&&
+                                <li>
+                                    <a href="/" onClick={ () => { logout() }} >
+                                        <span className="logoutIc">
+                                            <img src={require('../../static/images/logout.svg')} alt="logout" />
+                                        </span> 
+                                        Logout
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>

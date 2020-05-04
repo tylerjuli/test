@@ -31,7 +31,7 @@ app.use(bodyParser())
 app.use(cors())
 app.use((ctx, next) => {
     const allowedHosts = [
-        'http://localhost:8080'
+        'http://localhost:3000'
     ]
     const origin = ctx.header['origin']
     allowedHosts.every(el => {
@@ -42,10 +42,10 @@ app.use((ctx, next) => {
         }
         return true
     })
-    ctx.set('Access-Control-Allow-Credentials', true)
     ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-timebase, Link')
     ctx.set('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH, OPTIONS')
     ctx.set('Access-Control-Expose-Headers', 'Link')
+    ctx.set('Access-Control-Allow-Credentials', true)
     return next()
 })
 app.use(router.routes())

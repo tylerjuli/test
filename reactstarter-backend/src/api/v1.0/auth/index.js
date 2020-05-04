@@ -5,6 +5,6 @@ const authCtrl = require('./auth.ctrl')
 
 auth.post('/register/local', authCtrl.localRegister)
 auth.post('/login/local', authCtrl.localLogin)
-auth.post('/check', authCtrl.check)
+auth.get('/check', authCtrl.check)
 
 module.exports = auth
